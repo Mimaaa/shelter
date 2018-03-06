@@ -12,7 +12,7 @@ module.exports = express()
   .get('/', all)
   /* TODO: Other HTTP methods. */
   // .post('/', add)
-  // .get('/:id', get)
+  .get('/:id', get)
   // .put('/:id', set)
   // .patch('/:id', change)
   // .delete('/:id', remove)
@@ -29,4 +29,10 @@ function all(req, res) {
   //   json: () => res.json(result),
   //   html: () => res.render('list.ejs', Object.assign({}, result, helpers))
   // })
+}
+
+function get(req, res) {
+  var id = req.params.id
+  var result = { errors: [], data: db.get(id) }
+  res.render('detail.ejs', Object.assign({}, result, helpers))
 }
