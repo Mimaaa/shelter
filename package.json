@@ -51,7 +51,7 @@
     "xo": "^0.18.2"
   },
   "scripts": {
-    "start": "node server",
+    "start": "nodemon server",
     "lint:js": "xo",
     "lint:css": "stylelint src/index.css",
     "lint:md": "remark . -qf",
