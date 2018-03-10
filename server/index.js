@@ -32,8 +32,30 @@ function all(req, res) {
   // })
 }
 
+// function get(req, res) {
+//   var id = req.params.id
+//   var result = {errors: [], data: db.get(id)}
+//   res.render('detail.ejs', Object.assign({}, result, helpers))
+// }
+
 function get(req, res) {
   var id = req.params.id
-  var result = {errors: [], data: db.get(id)}
-  res.render('detail.ejs', Object.assign({}, result, helpers))
+  var result = {errors: [], data: undefined}
+  var has
+
+  try {
+    has = db.has(id)
+  } catch (err) {
+    result.errors.push({id : 400, title : 'bad request'})
+    res.status(400).render('error.ejs', Object.assign({}, result, helpers))
+    return
+  }
+
+  if (has) {
+    result.data = db.get(id)
+    res.render('detail.ejs', Object.assign({}, result, helpers))
+  } else {
+    result.errors.push({id : 404, title : 'not found'})
+    res.status(404).render('error.ejs', Object.assign({}, result, helpers))
+  }
 }
