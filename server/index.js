@@ -1,6 +1,7 @@
 'use strict'
 
 var express = require('express')
+var find = require('array-find')
 var db = require('../db')
 var helpers = require('./helpers')
 
@@ -8,7 +9,7 @@ module.exports = express()
   .set('view engine', 'ejs')
   .set('views', 'view')
   .use(express.static('static'))
-  // TODO: Serve the images in `db/image` on `/image`.
+  .use('/image', express.static('db/image'))
   .get('/', all)
   /* TODO: Other HTTP methods. */
   // .post('/', add)
@@ -33,6 +34,6 @@ function all(req, res) {
 
 function get(req, res) {
   var id = req.params.id
-  var result = { errors: [], data: db.get(id) }
+  var result = {errors: [], data: db.get(id)}
   res.render('detail.ejs', Object.assign({}, result, helpers))
 }
