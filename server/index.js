@@ -21,15 +21,7 @@ module.exports = express()
 
 function all(req, res) {
   var result = {errors: [], data: db.all()}
-
-  /* Use the following to support just HTML:  */
   res.render('list.ejs', Object.assign({}, result, helpers))
-
-  /* Support both a request for JSON and a request for HTML  */
-  // res.format({
-  //   json: () => res.json(result),
-  //   html: () => res.render('list.ejs', Object.assign({}, result, helpers))
-  // })
 }
 
 function get(req, res) {
