@@ -132,7 +132,7 @@ function add(req, res) {
   try {
     var newAnimal = db.add(animalProperties)
     if (req.file) {
-      fs.rename(req.file.path, `db/image/${newAnimal.id}.jpg`)
+      fs.rename(req.file.path, 'db/image/'+newAnimal.id+'.jpg')
     }
     console.log(newAnimal.id)
     res.redirect('/' + newAnimal.id)
