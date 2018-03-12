@@ -18,7 +18,6 @@ module.exports = express()
   .get('/:id', get)
   .post('/', add)
   /* TODO: Other HTTP methods. */
-  // .post('/', add)
   // .put('/:id', set)
   // .patch('/:id', change)
   .delete('/:id', remove)
@@ -57,7 +56,7 @@ function get(req, res) {
         return res.json(result)
       },
       html: function () {
-        return res.render('list.ejs', Object.assign({}, result, helpers))
+        return res.render('detail.ejs', Object.assign({}, result, helpers))
       }
     })
   } else if (db.removed(id)) {
@@ -104,16 +103,17 @@ function form(req, res) {
 }
 
 function add(req, res) {
+  var result = { errors: [], data: undefined }
   var body = req.body
   var animalProperties = {
     name: body.name,
     type: body.type,
     age: Number(body.age),
     sex: body.sex,
-    weigth: Number(body.weight) || null,
-    size: body.size || null,
-    length: body.length || null,
-    coat: body.coat || null,
+    weigth: Number(body.weight),
+    size: body.size,
+    length: body.length,
+    coat: body.coat,
     vaccinated: body.vaccinated === "yes",
     declawed: body.type === "cat" ? body.declawed === "yes" : undefined,
     primaryColor: body.primaryColor,
@@ -123,6 +123,17 @@ function add(req, res) {
     intake: body.intake
   }
   console.log(animalProperties)
+
+  try {
+    var newAnimal = db.add(animalProperties)
+    console.log(newAnimal.id)
+    res.redirect('/' + newAnimal.id)
+  } catch (err) {
+    result.errors.push({ id: 422, title: 'unprocessable entity' })
+    res.status(422).render('error.ejs', Object.assign({}, result, helpers))
+    console.log(err)
+    return
+  }
 }
 
 // Implement POST / to add an animal from the form (tip: db.add()
