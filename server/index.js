@@ -6,6 +6,8 @@ var helpers = require('./helpers')
 var bodyParser = require('body-parser')
 var multer = require('multer')
 
+var upload = multer({dest: 'db/image/'})
+
 module.exports = express()
   .use(express.static('static'))
   .use('/image', express.static('db/image'))
