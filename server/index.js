@@ -7,7 +7,10 @@ var bodyParser = require('body-parser')
 var multer = require('multer')
 var fs = require('fs')
 
-var upload = multer({dest: 'db/image/'})
+var upload = multer({
+  dest: 'db/image/',
+  fileFilter: fileFilter
+})
 
 module.exports = express()
   .use(express.static('static'))
@@ -122,16 +125,25 @@ function add(req, res) {
     secondaryColor: body.secondaryColor || null,
     description: body.description || null,
     place: body.place,
-    intake: body.intake,
-    image: req.file ? req.file.filename : null
+    intake: body.intake
   }
   console.log(animalProperties)
 
   try {
     var newAnimal = db.add(animalProperties)
+    if (req.file) {
+      fs.rename(req.file.path, `db/image/${newAnimal.id}.jpg`)
+    }
     console.log(newAnimal.id)
     res.redirect('/' + newAnimal.id)
   } catch (err) {
+    if (req.file) {
+      fs.unlink(req.file.path, function (err) {
+        if (err) throw err;
+      });
+    } else {
+      console.log(err)
+    }
     result.errors.push({ id: 422, title: 'unprocessable entity' })
     res.status(422).render('error.ejs', Object.assign({}, result, helpers))
     console.log(err)
@@ -139,9 +151,11 @@ function add(req, res) {
   }
 }
 
-// Add support for uploading images as well (tip: multer, and don’t
-// forget enctype = "multipart/form-data" on the form).Store images
-// in db / images.Accept only JPEG images: use accept = "image/jpeg"
-// on file inputs and multer’s fileFilter.Remove uploaded images if
-// the POST fails.Move uploaded images to $id.jpg, where $id is the
-// animal’s identifier, if the post succeeds
+// https://stackoverflow.com/questions/44171497/express-multer-filefilter-error-handling
+function fileFilter(req, file, cb) {
+  const extension = file.mimetype.split('/')[0];
+  if (extension !== 'image/jpeg') {
+    return cb(null, false), new Error('Something went wrong');
+  }
+  cb(null, true);
+};
