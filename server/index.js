@@ -1,10 +1,10 @@
 'use strict'
 
-var express = require('express')
-var db = require('../db')
-var helpers = require('./helpers')
 var bodyParser = require('body-parser')
+var helpers = require('./helpers')
+var express = require('express')
 var multer = require('multer')
+var db = require('../db')
 var fs = require('fs')
 
 var upload = multer({
@@ -138,6 +138,7 @@ function add(req, res) {
     console.log(newAnimal.id)
     res.redirect('/' + newAnimal.id)
   } catch (err) {
+
     if (req.file) {
       fs.unlink(req.file.path, function (err) {
         if (err) throw err;
