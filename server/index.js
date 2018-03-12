@@ -17,7 +17,7 @@ module.exports = express()
   .get('/', all)
   .get('/add', form)
   .get('/:id', get)
-  .post('/', add)
+  .post('/', upload.single('image'), add)
   /* TODO: Other HTTP methods. */
   // .put('/:id', set)
   // .patch('/:id', change)
