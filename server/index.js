@@ -5,6 +5,7 @@ var db = require('../db')
 var helpers = require('./helpers')
 var bodyParser = require('body-parser')
 var multer = require('multer')
+var fs = require('fs')
 
 var upload = multer({dest: 'db/image/'})
 
@@ -121,7 +122,8 @@ function add(req, res) {
     secondaryColor: body.secondaryColor || null,
     description: body.description || null,
     place: body.place,
-    intake: body.intake
+    intake: body.intake,
+    image: req.file ? req.file.filename : null
   }
   console.log(animalProperties)
 
