@@ -4,6 +4,7 @@ var express = require('express')
 var db = require('../db')
 var helpers = require('./helpers')
 var bodyParser = require('body-parser')
+var multer = require('multer')
 
 module.exports = express()
   .use(express.static('static'))
