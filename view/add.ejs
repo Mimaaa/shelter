@@ -8,12 +8,12 @@
 <main>
   <h1>Add animal</h1>
   <form action="/" method="POST">
-    <label>Name
-      <input type="text" name="name">
+    <label>Name *
+      <input type="text" name="name" required>
     </label>
 
-    <label> Type of animal
-      <select name="type">
+    <label> Type of Animal *
+      <select name="type" required>
         <option value="dog">Dog</option>
         <option value="cat">Cat</option>
         <option value="rabbit">Rabbit</option>
@@ -21,39 +21,49 @@
     </label>
 
     <label>
-      Age
-      <input type="number" name="age">
+      Age *
+      <input type="number" name="age" required>
     </label>
 
     <fieldset>
-      <legend>Sex</legend>
+      <legend>Sex *</legend>
       <label>
-        <input type="radio" name="sex" value="male"> Male
+        <input type="radio" name="sex" value="male" required> Male
       </label>
       <label>
-        <input type="radio" name="sex" value="female"> Female
+        <input type="radio" name="sex" value="female" required> Female
       </label>
     </fieldset>
 
     <label> Weight
-      <input type="number">
+      <input type="number" name="weight">
     </label>
 
-    <label> Size
-      <select name="size">
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="lare">Large</option>
-      </select>
-    </label>
+    <fieldset>
+      <legend>Size</legend>
+      <label>
+        <input type="radio" name="size" value="small"> Small
+      </label>
+      <label>
+        <input type="radio" name="size" value="medium"> Medium
+      </label>
+      <label>
+        <input type="radio" name="size" value="large"> Large
+      </label>
+    </fieldset>
 
-    <label> Length
-      <select name="length">
-        <option value="short">Short</option>
-        <option value="medium">Medium</option>
-        <option value="long">Long</option>
-      </select>
-    </label>
+    <fieldset>
+      <legend>Length</legend>
+      <label>
+        <input type="radio" name="length" value="short"> Short
+      </label>
+      <label>
+        <input type="radio" name="length" value="medium"> Medium
+      </label>
+      <label>
+        <input type="radio" name="length" value="long"> Long
+      </label>
+    </fieldset>
 
     <fieldset>
       <legend>Coat</legend>
@@ -66,32 +76,32 @@
     </fieldset>
 
     <fieldset>
-      <legend>Vaccinated</legend>
+      <legend>Vaccinated *</legend>
       <label>
-        <input type="radio" name="vaccinated" value="true"> Yes
+        <input type="radio" name="vaccinated" value="yes" required> Yes
       </label>
       <label>
-        <input type="radio" name="vaccinated" value="false"> No
+        <input type="radio" name="vaccinated" value="no" required> No
       </label>
     </fieldset>
 
     <fieldset>
       <legend>Declawed (cats only)</legend>
       <label>
-        <input type="radio" name="declawed" value="true"> Yes
+        <input type="radio" name="declawed" value="yes"> Yes
       </label>
       <label>
-        <input type="radio" name="declawed" value="false"> No
+        <input type="radio" name="declawed" value="no"> No
       </label>
     </fieldset>
 
     <fieldset>
       <legend>Color</legend>
-      <label> Primary Color
-        <input type="text" name="color">
+      <label> Primary Color *
+        <input type="text" name="primaryColor" required>
       </label>
       <label> Secondary Color
-        <input type="text" name="color">
+        <input type="text" name="secondaryColor">
       </label>
     </fieldset>
 
@@ -100,8 +110,8 @@
     </label>
 
     <label>
-      Shelter
-      <select name="place">
+      Shelter *
+      <select name="place" required>
         <option value="Brooklyn Animal Care Center">Brooklyn Animal Care Center</option>
         <option value="Manhattan Animal Care Center">Manhattan Animal Care Center</option>
         <option value="Staten Island Animal Care Center">Staten Island Animal Care Center</option>
@@ -109,8 +119,9 @@
     </label>
 
     <label>
-      Intake Date
-      <input type="date" format="yyyy/dd/MM">
+      Intake Date *
+      <input type="date" name="intake" required>
     </label>
+    <input type="submit" value-"Submit">
   </form>
 </main>
