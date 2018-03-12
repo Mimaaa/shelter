@@ -23,7 +23,6 @@ module.exports = express()
   .get('/add', form)
   .get('/:id', get)
   .post('/', upload.single('image'), add)
-  /* TODO: Other HTTP methods. */
   // .put('/:id', set)
   // .patch('/:id', change)
   .delete('/:id', remove)
