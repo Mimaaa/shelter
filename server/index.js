@@ -23,7 +23,7 @@ module.exports = express()
   .get('/add', form)
   .get('/:id', get)
   .post('/', upload.single('image'), add)
-  // .put('/:id', set)
+  //.put('/:id', set)
   // .patch('/:id', change)
   .delete('/:id', remove)
   .listen(1902)
@@ -137,7 +137,6 @@ function add(req, res) {
     console.log(newAnimal.id)
     res.redirect('/' + newAnimal.id)
   } catch (err) {
-
     if (req.file) {
       fs.unlink(req.file.path, function (err) {
         if (err) throw err;
