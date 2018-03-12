@@ -7,7 +7,7 @@
 <link rel=stylesheet href=/index.css>
 <main>
   <h1>Add animal</h1>
-  <form action="/" method="POST">
+  <form action="/" method="POST" enctype="multipart/form-data">
     <label>Name *
       <input type="text" name="name" required>
     </label>
@@ -121,6 +121,11 @@
     <label>
       Intake Date *
       <input type="date" name="intake" required>
+    </label>
+
+    <label>
+      Image
+      <input type="file" name="image" accept="image/jpeg">
     </label>
     <input type="submit" value-"Submit">
   </form>
