@@ -28,8 +28,12 @@ function all(req, res) {
   var result = {errors: [], data: db.all()}
 
   res.format({
-    json: () => res.json(result),
-    html: () => res.render('list.ejs', Object.assign({}, result, helpers))
+    json: function () {
+      return res.json(result)
+    },
+    html: function () {
+      return res.render('list.ejs', Object.assign({}, result, helpers))
+    }
   })
 }
 
@@ -49,8 +53,12 @@ function get(req, res) {
   if (has) {
     result.data = db.get(id)
     res.format({
-      json: () => res.json(result),
-      html: () => res.render('detail.ejs', Object.assign({}, result, helpers))
+      json: function () {
+        return res.json(result)
+      },
+      html: function () {
+        return res.render('list.ejs', Object.assign({}, result, helpers))
+      }
     })
   } else if (db.removed(id)) {
     result.errors.push({ id: 410, title: 'gone' })
@@ -79,7 +87,9 @@ function remove(req, res) {
     result.data = db.remove(id)
     res.status(204)
     res.format({
-      json: () => res.json(result)
+      json: function () {
+        return res.json(result)
+      }
     })
   } else {
     result.data = db.removed(id)
