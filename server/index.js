@@ -14,8 +14,9 @@ module.exports = express()
   .set('view engine', 'ejs')
   .set('views', 'view')
   .get('/', all)
-  .get('/add', add)
+  .get('/add', form)
   .get('/:id', get)
+  .post('/', add)
   /* TODO: Other HTTP methods. */
   // .post('/', add)
   // .put('/:id', set)
@@ -25,7 +26,11 @@ module.exports = express()
 
 function all(req, res) {
   var result = {errors: [], data: db.all()}
-  res.render('list.ejs', Object.assign({}, result, helpers))
+
+  res.format({
+    json: () => res.json(result),
+    html: () => res.render('list.ejs', Object.assign({}, result, helpers))
+  })
 }
 
 function get(req, res) {
@@ -84,7 +89,42 @@ function remove(req, res) {
   }
 }
 
-function add(req, res) {
+function form(req, res) {
   res.render('add')
 }
 
+function add(req, res) {
+  var body = req.body
+  var animalProperties = {
+    name: body.name,
+    type: body.type,
+    age: Number(body.age),
+    sex: body.sex,
+    weigth: Number(body.weight) || null,
+    size: body.size || null,
+    length: body.length || null,
+    coat: body.coat || null,
+    vaccinated: body.vaccinated === "yes",
+    declawed: body.type === "cat" ? body.declawed === "yes" : undefined,
+    primaryColor: body.primaryColor,
+    secondaryColor: body.secondaryColor || null,
+    description: body.description || null,
+    place: body.place,
+    intake: body.intake
+  }
+  console.log(animalProperties)
+}
+
+// Implement POST / to add an animal from the form (tip: db.add()
+// and body-parser). You should clean the data sent to the server
+// before passing it to db.add, as there are many cases where adding
+// an animal can fail:
+
+// such as when required fields are missing
+// vaccinated and declawed a boolean
+// declawed must be undefined for dogs and rabbits
+// or when values are empty strings instead of undefined)
+
+// Respond with a 422 Unprocessable Entity if the animal is invalid. Respond
+// with a redirect to the animal if successful. Note: restarting the server removes
+// the added animals.
