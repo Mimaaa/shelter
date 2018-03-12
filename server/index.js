@@ -79,6 +79,3 @@ function remove(req, res) {
     console.log(result.data)
   }
 }
-
-// Handle unfound animals that used to exist in GET /:id and DELETE /:id by
-// sending a 410 Gone instead of 404 Not Found error back (tip: db.removed).
