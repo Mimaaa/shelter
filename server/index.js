@@ -4,12 +4,15 @@ var express = require('express')
 var find = require('array-find')
 var db = require('../db')
 var helpers = require('./helpers')
+var slug = require('slug')
+var bodyParser = require('body-parser')
 
 module.exports = express()
-  .set('view engine', 'ejs')
-  .set('views', 'view')
   .use(express.static('static'))
   .use('/image', express.static('db/image'))
+  .use(bodyParser.urlencoded({ extended: true }))
+  .set('view engine', 'ejs')
+  .set('views', 'view')
   .get('/', all)
   .get('/:id', get)
   /* TODO: Other HTTP methods. */
@@ -79,3 +82,10 @@ function remove(req, res) {
     console.log(result.data)
   }
 }
+
+// Create a form and make it post to /. You can add an HTML file in static,
+// or you could make it a view, but then you need to create a route that renders
+// it. Add a link from the list to the new form. See the definition of Animal for
+// which fields are needed, what values they can have, and whether they are required.
+// There is CSS for forms and fields already, but if you’d like to add more make sure
+// to do so in src/index.css and to run npm run build afterwards.
