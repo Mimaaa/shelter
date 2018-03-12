@@ -15,11 +15,9 @@
     "view"
   ],
   "dependencies": {
-    "array-find": "^1.0.0",
     "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
-    "express": "^4.16.2",
-    "slug": "^0.9.1"
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

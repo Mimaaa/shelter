@@ -1,10 +1,8 @@
 'use strict'
 
 var express = require('express')
-var find = require('array-find')
 var db = require('../db')
 var helpers = require('./helpers')
-var slug = require('slug')
 var bodyParser = require('body-parser')
 
 module.exports = express()
@@ -136,16 +134,9 @@ function add(req, res) {
   }
 }
 
-// Implement POST / to add an animal from the form (tip: db.add()
-// and body-parser). You should clean the data sent to the server
-// before passing it to db.add, as there are many cases where adding
-// an animal can fail:
-
-// such as when required fields are missing
-// vaccinated and declawed a boolean
-// declawed must be undefined for dogs and rabbits
-// or when values are empty strings instead of undefined)
-
-// Respond with a 422 Unprocessable Entity if the animal is invalid. Respond
-// with a redirect to the animal if successful. Note: restarting the server removes
-// the added animals.
+// Add support for uploading images as well (tip: multer, and don’t
+// forget enctype = "multipart/form-data" on the form).Store images
+// in db / images.Accept only JPEG images: use accept = "image/jpeg"
+// on file inputs and multer’s fileFilter.Remove uploaded images if
+// the POST fails.Move uploaded images to $id.jpg, where $id is the
+// animal’s identifier, if the post succeeds
